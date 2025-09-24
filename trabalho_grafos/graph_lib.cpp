@@ -130,3 +130,268 @@ vector<vector<int>> txt_to_adjacency_vector(const string& nome_arquivo, string n
 
         return graph;
 }
+//Função 1 --> Faz a BFS para vetor de adjacência
+void BFS_tree_vector(const vector<vector<int>>& graph, int origem, string nome_do_arquivo_de_saida = "arvoreBFS.txt"){
+    int INF = 1e9;
+    vector<int> nivel(graph.size(), INF);
+    vector<int> pai(graph.size(), INF);
+    vector<bool> visitados(graph.size(), false);
+    queue <int> fila;
+    visitados[origem] = true;
+    nivel[origem] = 0;
+    pai[origem] = -1;
+    fila.push(origem);
+    while(!fila.empty()) {
+        int atual = fila.front();
+        fila.pop();
+        for(int vizinho : graph[atual]){
+            if(!visitados[vizinho]){
+                fila.push(vizinho);
+                visitados[vizinho] = true;
+                nivel[vizinho] = nivel[atual] + 1;
+                pai[vizinho] = atual;
+            }       
+        }       
+    }
+
+    ofstream arquivo_de_saida(nome_do_arquivo_de_saida);
+    
+    for(int i = 1; i < graph.size(); i++){
+        arquivo_de_saida  << "Vértice: " << i << endl;
+        arquivo_de_saida << "Nível: " << nivel[i] << endl;
+        arquivo_de_saida << "Pai: " << pai[i] << '\n' << '\n';
+    }
+
+    cout << "Resultados gravados no arquivo " << nome_do_arquivo_de_saida << endl;
+    arquivo_de_saida.close();
+
+}
+//Retorna o tempo de execução da BFS no vetor de adjacência
+double BFS_tree_vector_with_execution_time(const vector<vector<int>>& graph, int origem, string nome_do_arquivo_de_saida = "arvoreBFS.txt"){
+    using namespace std::chrono; 
+    int INF = 1e9;
+    vector<int> nivel(graph.size(), INF);
+    vector<int> pai(graph.size(), INF);
+    vector<bool> visitados(graph.size(), false);
+    queue <int> fila;
+
+    auto inicio = high_resolution_clock::now();
+
+    visitados[origem] = true;
+    nivel[origem] = 0;
+    pai[origem] = -1;
+    fila.push(origem);
+
+    while(!fila.empty()) {
+        int atual = fila.front();
+        fila.pop();
+        for(int vizinho : graph[atual]){
+            if(!visitados[vizinho]){
+                fila.push(vizinho);
+                visitados[vizinho] = true;
+                nivel[vizinho] = nivel[atual] + 1;
+                pai[vizinho] = atual;
+            }       
+        }       
+    }
+
+    auto fim = high_resolution_clock::now(); // fim do algoritmo
+
+    duration<double> tempo_execucao = fim - inicio;
+
+    ofstream arquivo_de_saida(nome_do_arquivo_de_saida);
+    
+    for(int i = 1; i < graph.size(); i++){
+        if (nivel[i] != INF) {
+            arquivo_de_saida  << "Vértice: " << i << endl;
+            arquivo_de_saida << "Nível: " << nivel[i] << endl;
+            arquivo_de_saida << "Pai: " << pai[i] << '\n' << '\n';
+        }
+    }
+
+    //cout << "Resultados gravados no arquivo " << nome_do_arquivo_de_saida << endl;
+    arquivo_de_saida.close();
+
+    return tempo_execucao.count();
+
+}
+
+//Faz a DFS para vetor de adjacência
+void DFS_tree_vector(const vector<vector<int>>& graph, int origem, string nome_do_arquivo_de_saida = "arvoreDFS.txt") {
+    int INF = 1e9;
+    vector<int> nivel(graph.size(), INF);
+    vector<int> pai(graph.size(), INF);
+    vector<bool> visitados(graph.size(), false);
+    stack<int> pilha;
+
+    visitados[origem] = true;
+    nivel[origem] = 0;
+    pai[origem] = -1;
+    pilha.push(origem);
+
+    while (!pilha.empty()) {
+        int atual = pilha.top();
+        pilha.pop();
+        for (int vizinho : graph[atual]) {
+            if (!visitados[vizinho]) {
+                pilha.push(vizinho);
+                visitados[vizinho] = true;
+                nivel[vizinho] = nivel[atual] + 1;
+                pai[vizinho] = atual;
+            }
+        }
+    }
+
+    ofstream arquivo_de_saida(nome_do_arquivo_de_saida);
+
+    for (int i = 1; i < graph.size(); i++) {
+
+        arquivo_de_saida << "Vértice: " << i << endl;
+        arquivo_de_saida << "Nível: " << nivel[i] << endl;
+        arquivo_de_saida << "Pai: " << pai[i] << '\n' << '\n';
+        
+    }
+
+    arquivo_de_saida.close();
+    
+    cout << "Resultados gravados no arquivo " << nome_do_arquivo_de_saida << endl;
+
+}
+//Retorna o tempo de execução da DFS para vetor de adjacência
+double DFS_tree_vector_with_execution_time(const vector<vector<int>>& graph, int origem, string nome_do_arquivo_de_saida = "arvoreDFS.txt") {
+    using namespace std::chrono; 
+
+    int INF = 1e9;
+    vector<int> nivel(graph.size(), INF);
+    vector<int> pai(graph.size(), INF);
+    vector<bool> visitados(graph.size(), false);
+    stack<int> pilha;
+    
+    auto inicio = high_resolution_clock::now(); // início do algoritmo
+
+    visitados[origem] = true;
+    nivel[origem] = 0;
+    pai[origem] = -1;
+    pilha.push(origem);
+
+    while (!pilha.empty()) {
+        int atual = pilha.top();
+        pilha.pop();
+        for (int vizinho : graph[atual]) {
+            if (!visitados[vizinho]) {
+                pilha.push(vizinho);
+                visitados[vizinho] = true;
+                nivel[vizinho] = nivel[atual] + 1;
+                pai[vizinho] = atual;
+            }
+        }
+    }
+
+
+    auto fim = high_resolution_clock::now(); // fim do algoritmo
+
+    duration<double> tempo_execucao = fim - inicio;
+
+    ofstream arquivo_de_saida(nome_do_arquivo_de_saida);
+
+    for (int i = 1; i < graph.size(); i++) {
+        arquivo_de_saida << "Vértice: " << i << endl;
+        arquivo_de_saida << "Nível: " << nivel[i] << endl;
+        arquivo_de_saida << "Pai: " << pai[i] << '\n' << '\n';
+
+    }
+
+    arquivo_de_saida.close();
+    
+   // cout << "Resultados gravados no arquivo " << nome_do_arquivo_de_saida << endl;
+    return tempo_execucao.count();
+
+}
+//Faz o diâmetro aproximado da matriz de adjacência
+int Approximate_diameter_vector(const vector<vector<int>>& graph){
+    int max_distancia = 0;
+    for(int i = 0; i < 5000; i ++){
+        vector<int> dist(graph.size(), -1);
+        int origem = rand() % graph.size();
+        dist[origem] = 0;
+        queue <int> fila;
+        fila.push(origem);
+        while(!fila.empty()) {
+            int atual = fila.front();
+            fila.pop();
+            for(int vizinho : graph[atual]){
+                if(dist[vizinho] == -1){
+                    dist[vizinho] = dist[atual] + 1;
+                    fila.push(vizinho);
+                    if (dist[vizinho] > max_distancia) {
+                        max_distancia = dist[vizinho];
+                    }
+                }       
+            }       
+        }  
+    }
+    cout << "Diametro do grafo aproximado: " << max_distancia << endl;
+}
+
+//Faz o diâmetro real da vetor de adjacência
+int Diameter_vector(const vector<vector<int>>& graph){
+
+    if(graph.size() >= 500000){
+        return Approximate_diameter_vector(graph);
+    }
+    else{
+        int max_distancia = 0;
+        for(int i = 1; i < graph.size(); i ++){
+            vector<int> dist(graph.size(), -1);
+            int origem = i;
+            dist[origem] = 0;
+            queue <int> fila;
+            fila.push(origem);
+            while(!fila.empty()) {
+                int atual = fila.front();
+                fila.pop();
+                for(int vizinho : graph[atual]){
+                    if(dist[vizinho] == -1){
+                        dist[vizinho] = dist[atual] + 1;
+                        fila.push(vizinho);
+                        if (dist[vizinho] > max_distancia) {
+                            max_distancia = dist[vizinho];
+                        }
+                    }       
+                }       
+            }  
+        }
+        cout << "Diametro do grafo: " << max_distancia << endl;
+    }
+}
+
+
+//Imprime a distância entre dois pontos
+void Distance_vector(const vector<vector<int>>& graph, int origem, int destino){
+    vector<int> dist(graph.size(), -1);
+    vector<bool> visitados(graph.size(), false);
+    queue <int> fila;
+    int distancia = -1;
+    visitados[origem] = true;
+    dist[origem] = 0;
+    fila.push(origem);
+    while(!fila.empty()) {
+        int atual = fila.front();
+        fila.pop();
+        for(int vizinho : graph[atual]){
+            if(!visitados[vizinho]){
+                fila.push(vizinho);
+                visitados[vizinho] = true;
+                dist[vizinho] = dist[atual] + 1;
+                if(vizinho == destino){    
+                    distancia = dist[vizinho];
+                    cout << "A distancia entre " << origem << " e " << destino << " igual a: " << distancia << endl;
+                    return;
+                }
+            }       
+        }       
+    }
+    cout << "Impossivel ligar os vertices "  << origem << " e " << destino << "." << endl;
+} 
+
+
