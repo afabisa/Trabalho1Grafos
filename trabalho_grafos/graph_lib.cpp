@@ -483,7 +483,7 @@ vector<vector<bool>> txt_to_adjacency_matrix(const string& nome_arquivo, string 
     sort(tamanhos.begin(), tamanhos.end());
     reverse(tamanhos.begin(), tamanhos.end());
 
-    // Gravar os resultados no arquivo de saída
+    // Gravar os resultados no arquivo de saída - Distinto do 
     ofstream arquivo_de_saida(nome_do_arquivo_de_saida_principal, std::ios::app);
 
     if (arquivo_de_saida.is_open()) {
@@ -513,7 +513,7 @@ vector<vector<bool>> txt_to_adjacency_matrix(const string& nome_arquivo, string 
 
     return matrix;
 }
-
+//BFS para matriz de adjacência
 void BFS_tree_matrix(const vector<vector<bool>>& matrix, int origem, string nome_do_arquivo_de_saida = "arvoreBFS.txt"){
     int INF = 1e9;
     vector<int> nivel(matrix.size(), INF);
@@ -549,7 +549,7 @@ void BFS_tree_matrix(const vector<vector<bool>>& matrix, int origem, string nome
     arquivo_de_saida.close();
 
 }
-
+//tempo BFS para matriz de adjacência
 double BFS_tree_matrix_with_execution_time(const vector<vector<bool>>& matrix, int origem, string nome_do_arquivo_de_saida = "arvoreBFS.txt"){
     using namespace std::chrono;
 
@@ -598,7 +598,7 @@ double BFS_tree_matrix_with_execution_time(const vector<vector<bool>>& matrix, i
     return tempo_execucao.count();
 
 }
-
+//DFS para matriz de adjacência
 void DFS_tree_matrix(const vector<vector<bool>>& matrix, int origem, string nome_do_arquivo_de_saida = "arvoreDFS.txt"){
     int INF = 1e9;
     vector<int> nivel(matrix.size(), INF);
@@ -638,7 +638,7 @@ void DFS_tree_matrix(const vector<vector<bool>>& matrix, int origem, string nome
     arquivo_de_saida.close();
 
 }
-
+//Tempo de execução Matriz
 double DFS_tree_matrix_with_execution_time(const vector<vector<bool>>& matrix, int origem, string nome_do_arquivo_de_saida = "arvoreDFS.txt"){
     using namespace std::chrono;
 
@@ -690,7 +690,7 @@ double DFS_tree_matrix_with_execution_time(const vector<vector<bool>>& matrix, i
     return tempo_execucao.count();
 
 }
-
+//Diâmetro aproximado matriz
 int Approximate_diameter_matrix(const vector<vector<bool>>& matrix){
     int max_distancia = 0;
     for(int i = 0; i < 5000; i ++){
@@ -716,7 +716,7 @@ int Approximate_diameter_matrix(const vector<vector<bool>>& matrix){
     cout << "Diametro do grafo aproximado: " << max_distancia << endl;
 }
  
-
+//Diâmetro da matriz
 int Diameter_matrix(const vector<vector<bool>>& matrix){
 
     if(matrix.size() >= 500000){
@@ -748,7 +748,7 @@ int Diameter_matrix(const vector<vector<bool>>& matrix){
     }
 }
 
-
+//Distância entre dois vertices na matriz
 void Distance_matrix(const vector<vector<bool>>& matrix, int origem, int destino){
     vector<int> dist(matrix.size(), -1);
     vector<bool> visitados(matrix.size(), false);
