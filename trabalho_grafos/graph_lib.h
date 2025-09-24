@@ -15,6 +15,8 @@ vector<vector<int>> txt_to_adjacency_vector(const string& nome_arquivo, string n
 void BFS_tree_vector(const vector<vector<int>>& graph, int origem, string nome_do_arquivo_de_saida = "arvoreBFS.txt");
 void DFS_tree_vector(const vector<vector<int>>& graph, int origem, string nome_do_arquivo_de_saida = "arvoreDFS.txt");
 
+// Funções de diâmetro e distância entre dois vértices para vetor de adjacência
+
 void Distance_vector(const vector<vector<int>>& graph, int origem, int destino);
 void Approximate_diameter_vector(const vector<vector<int>>& graph);
 void Diameter_vector(const vector<vector<int>>& graph);
@@ -23,6 +25,8 @@ void Diameter_vector(const vector<vector<int>>& graph);
 
 void DFS_tree_matrix(const vector<vector<bool>>& matrix, int origem, string nome_do_arquivo_de_saida = "arvoreDFS.txt");
 void BFS_tree_matrix(const vector<vector<bool>>& matrix, int origem, string nome_do_arquivo_de_saida = "arvoreBFS.txt");
+
+//Funções de diâmetro e distância entre dois vértices para matriz de adjacência
 
 void Distance_matrix(const vector<vector<bool>>& matrix, int origem, int destino);
 void Approximate_diameter_matrix(const vector<vector<bool>>& matrix);
